@@ -10,6 +10,7 @@ const Books = lazy(() => import("./pages/books/Books"));
 const NewBook = lazy(() => import("./pages/books/NewBook"));
 const EditBook = lazy(() => import("./pages/books/EditBook"));
 const ViewBook = lazy(() => import("./pages/books/ViewBook"));
+const Cart = lazy(() => import("./pages/Cart/Cart"));
 function App() {
   // send request use axios
 
@@ -23,7 +24,7 @@ function App() {
           {/* ----------------------------------- */}
           {/* private route */}
           {/* ----------------------------------- */}
-          <Route element={<AuthenticatedRoute />}>
+          {/* <Route element={<AuthenticatedRoute />}> */}
             {/* ----------------------------------- */}
             {/* userlayout route */}
             {/* ----------------------------------- */}
@@ -38,7 +39,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/search" element={<div>search</div>} />
                 <Route path="/books/v/:id" element={<ViewBook />} />
-
+                <Route path="/cart" element={<Cart/>}/>
                 {/* ----------------------------------- */}
                 {/* salerlayout route */}
                 {/* ----------------------------------- */}
@@ -50,7 +51,7 @@ function App() {
                 </Route>
               </Route>
             </Route>
-          </Route>
+          {/* </Route> */}
 
           {/* ----------------------------------- */}
           {/* public route */}
