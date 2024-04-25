@@ -38,6 +38,7 @@ app.use("/books", require("./routes/book_route"));
 app.use("/categorys", require("./routes/categorys_route"));
 app.use("/create", require("./routes/create_route"));
 app.use("/reviews", require("./routes/reviews_route"));
+app.use("/cart", require("./routes/cart_route"));
 
 app.use((err, req, res, next) => {
   if (err instanceof multer.MulterError) {

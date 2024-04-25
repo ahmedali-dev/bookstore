@@ -1,23 +1,40 @@
-import { faAdd, faCartShopping, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faCartShopping, faEdit, faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "./../../components/Buttons/Button";
 import useAxiosPrivate from "./../../hooks/useAxiosPrivate";
 import React, { useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MarkdownPreview from "@uiw/react-markdown-preview";
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from "../../hooks/useAuth";
 
 const ViewBook = () => {
   const axios = useAxiosPrivate();
   const { id } = useParams();
   const [rv, setReview] = React.useState("");
   const [star, setStar] = React.useState(0);
+  const auth = useAuth();
+  const decoded = jwtDecode(auth.token);
+  const navigate = useNavigate();
   const query = useQuery("edit", () => {
     return axios.get(`books/${id}`);
   });
 
   const reviewsQuery = useQuery("reviews", () => {
     return axios.get("/reviews/" + id);
+  });
+
+  const cartquery = useQuery("cartbyid", () => {
+    return axios.get("/cart/by/" + id);
+  });
+
+  const AddCartMutation = useMutation("cart/add", (data) => {
+    return axios.post("/cart", { ...data, count: 1 });
+  });
+
+  const deleteCartMutation = useMutation("cart/add", (data) => {
+    return axios.delete("/cart/delete/" + data);
   });
 
   const reviewMutaion = useMutation("review/create", (data) => {
@@ -39,7 +56,12 @@ const ViewBook = () => {
     reviewsData = reviewsQuery?.data?.data;
   }
 
-  console.log(bookData);
+  let cartdata = [];
+  if (cartdata) {
+    cartdata = cartquery?.data?.data[0];
+  }
+
+  console.log(cartdata?.found);
   return (
     <div className="view-book" key={bookData?.id}>
       <div className="header">
@@ -62,10 +84,37 @@ const ViewBook = () => {
           <h2>Price: {bookData?.price}</h2>
           <p>Description: {bookData?.description?.slice(1, 400)}</p>
 
-          <Button>
-            <FontAwesomeIcon icon={faCartShopping} />
-            <span>Add to cart</span>
-          </Button>
+          {decoded?.id === bookData?.user_id ? (
+            <Button
+              onClick={() => {
+                navigate(`/books/edit/${bookData?.id}`);
+              }}
+            >
+              <FontAwesomeIcon icon={faEdit} />
+              <span> edit</span>
+            </Button>
+          ) : cartdata?.found ? (
+            <Button
+              onClick={() => {
+                deleteCartMutation.mutate(bookData?.id);
+              }}
+              loading={cartquery.isLoading}
+              className="error"
+            >
+              <FontAwesomeIcon icon={faTrash} />
+              <span> delete from cart</span>
+            </Button>
+          ) : (
+            <Button
+              loading={cartquery.isLoading}
+              onClick={() => {
+                AddCartMutation.mutate({ book_id: bookData?.id });
+              }}
+            >
+              <FontAwesomeIcon icon={faCartShopping} />
+              <span> Add to cart</span>
+            </Button>
+          )}
         </div>
       </div>
 

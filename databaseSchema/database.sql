@@ -62,4 +62,28 @@ CREATE TABLE IF NOT EXISTS reviews (
     `updated` TIMESTAMP DEFAULT now(),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (book_id) REFERENCES books(id)
-) -- how to update rating from decimal to int
+);
+Drop TABLE IF EXISTS cart;
+CREATE TABLE IF NOT EXISTS cart (
+    `id` varchar(256) primary key DEFAULT md5(random()::text || clock_timestamp()::text),
+    `user_id` VARCHAR(256) not null,
+    `book_id` varchar(256) not null,
+    `count` int DEFAULT 1,
+    `created` TIMESTAMP DEFAULT now(),
+    `updated` TIMESTAMP DEFAULT now(),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (book_id) REFERENCES books(id)
+);
+DELIMITER $$ CREATE TRIGGER before_insert_cart BEFORE
+INSERT ON cart FOR EACH ROW BEGIN
+DECLARE user_exists INT;
+SELECT COUNT(*) INTO user_exists
+FROM books
+WHERE id = NEW.book_id
+    and user_id = NEW.user_id;
+-- 	SELECT 'user_exists: ' || user_exists;
+IF user_exists = 1 THEN SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = "can not add your book in cart";
+END IF;
+END;
+$$ DELIMITER;
