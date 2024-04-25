@@ -1,15 +1,17 @@
 import { faAdd, faCartShopping, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "components/Buttons/Button";
-import useAxiosPrivate from "hooks/useAxiosPrivate";
-import React from "react";
-import { useQuery } from "react-query";
+import Button from "./../../components/Buttons/Button";
+import useAxiosPrivate from "./../../hooks/useAxiosPrivate";
+import React, { useEffect } from "react";
+import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 
 const ViewBook = () => {
   const axios = useAxiosPrivate();
   const { id } = useParams();
+  const [rv, setReview] = React.useState("");
+  const [star, setStar] = React.useState(0);
   const query = useQuery("edit", () => {
     return axios.get(`books/${id}`);
   });
@@ -18,6 +20,15 @@ const ViewBook = () => {
     return axios.get("/reviews/" + id);
   });
 
+  const reviewMutaion = useMutation("review/create", (data) => {
+    return axios.post("/reviews", data);
+  });
+
+  useEffect(() => {
+    if (reviewMutaion.isSuccess) {
+      reviewsQuery.refetch();
+    }
+  }, [reviewMutaion.data, reviewMutaion.isError, reviewMutaion.isSuccess]);
   let bookData = [];
   if (bookData) {
     bookData = query?.data?.data[0];
@@ -83,9 +94,31 @@ const ViewBook = () => {
             cols="30"
             rows="10"
             placeholder="Write your review here..."
+            onChange={(e) => {
+              setReview(e.currentTarget.value);
+            }}
           ></textarea>
-          <Button>
+          <div className="star">
+            <Button onClick={(e) => setStar(e.target.innerText)}>1</Button>
+            <Button onClick={(e) => setStar(e.target.innerText)}>2</Button>
+            <Button onClick={(e) => setStar(e.target.innerText)}>3</Button>
+            <Button onClick={(e) => setStar(e.target.innerText)}>4</Button>
+            <Button onClick={(e) => setStar(e.target.innerText)}>5</Button>
+            <p>
+              <span>{star}</span>
+              <FontAwesomeIcon icon={faStar} />
+            </p>
+          </div>
+          {/*  onClick={() => reviewMutaion.mutate({ review: rv, book_id: id })} */}
+          <Button
+            onClick={() => {
+              if (rv.length > 0 && id) {
+                reviewMutaion.mutate({ review: rv, book_id: id, rating: star });
+              }
+            }}
+          >
             <FontAwesomeIcon icon={faAdd} />
+            <span> add review</span>
           </Button>
         </div>
 

@@ -1,9 +1,9 @@
-import Button from "components/Buttons/Button";
+import Button from "./../../components/Buttons/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useMutation } from "react-query";
-import useAxiosPrivate from "hooks/useAxiosPrivate";
+import useAxiosPrivate from "./../../hooks/useAxiosPrivate";
 import { useDispatch } from "react-redux";
 import { deleteOne } from "./BookSlice";
 

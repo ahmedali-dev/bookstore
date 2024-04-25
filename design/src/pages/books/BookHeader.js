@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { DefaultInput } from "components/Inputs/Input";
+import { DefaultInput } from "./../../components/Inputs/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import useAxiosPrivate from "hooks/useAxiosPrivate";
+import useAxiosPrivate from "./../../hooks/useAxiosPrivate";
 import { useDispatch } from "react-redux";
 import { setBooks } from "./BookSlice";
 

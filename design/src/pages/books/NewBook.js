@@ -1,8 +1,8 @@
-import Button from "components/Buttons/Button";
-import Input from "components/Inputs/Input";
+import Button from "./../../components/Buttons/Button";
+import Input from "./../../components/Inputs/Input";
 import { useFormik } from "formik";
-import useAxiosPrivate from "hooks/useAxiosPrivate";
-import useGetCategorys from "hooks/useGetCategorys";
+import useAxiosPrivate from "./../../hooks/useAxiosPrivate";
+import useGetCategorys from "./../../hooks/useGetCategorys";
 import React, { useEffect } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";

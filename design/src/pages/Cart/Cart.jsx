@@ -3,6 +3,7 @@ import book from "./book.jpg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import BookQuantity from './BookQuantity';
+import Button from './../../components/Buttons/Button';
 
 
 const Cart = () => {
@@ -26,7 +27,7 @@ const Cart = () => {
         </div>
         <div className="cart-summary">
           <p className="subtotal">Cart Subtotal: ${itemPrice * cartItems.length}</p>
-          <button>Checkout</button>
+          <Button>Checkout</Button>
         </div>
       </div>
     );

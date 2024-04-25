@@ -56,10 +56,10 @@ CREATE TABLE IF NOT EXISTS reviews (
     `id` varchar(256) primary key,
     `user_id` VARCHAR(256) not null,
     `book_id` varchar(256) not null,
-    `rating` decimal(1, 1) DEFAULT 0,
+    `rating` int DEFAULT 0,
     `review` text not null,
     `created` TIMESTAMP DEFAULT now(),
     `updated` TIMESTAMP DEFAULT now(),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (book_id) REFERENCES books(id)
-)
+) -- how to update rating from decimal to int

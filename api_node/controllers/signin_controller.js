@@ -16,7 +16,7 @@ const validation = [
 const signinUser = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const [result] = await getUserByEmail(email, "username,email, password,id");
+  const [result] = await getUserByEmail(email, "username,email, password,id,avatar");
   console.log(result);
 
   if (!result) {
@@ -29,12 +29,13 @@ const signinUser = async (req, res, next) => {
     if (!isPasswordValid) {
       return next(apperr.userNotFound());
     }
-
+    console.log("avatar", result);
     const accessToken = generateAccessToken(
       {
         username: result.username,
         email: result.email,
         id: result.id,
+        avatar: result.avatar,
       },
       "15d"
     );

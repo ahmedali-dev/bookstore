@@ -9,7 +9,8 @@ import {
   faMagnifyingGlass,
   faShop,
 } from "@fortawesome/free-solid-svg-icons";
-import Button from "../Buttons/Button";
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from "./../../hooks/useAuth";
 const Nav = ({ to, icon, className, children }) => (
   <NavLink
     to={to}
@@ -21,7 +22,10 @@ const Nav = ({ to, icon, className, children }) => (
     <span>{children}</span>
   </NavLink>
 );
-const userLayout = () => {
+const UserLayout = () => {
+  const auth = useAuth();
+  const decoded = jwtDecode(auth.token);
+  console.log(decoded);
   return (
     <>
       <nav className="nav">
@@ -59,7 +63,7 @@ const userLayout = () => {
 
             <Nav to={"/account"} className={"user-link"}>
               <img
-                src="https://images.unsplash.com/photo-1712512162392-d523620fbaa2?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0N3x8fGVufDB8fHx8fA%3D%3D"
+                src={`${process.env.REACT_APP_API_URL}images/${decoded?.avatar}`}
                 alt="user-logo"
               />
             </Nav>
@@ -72,4 +76,4 @@ const userLayout = () => {
   );
 };
 
-export default userLayout;
+export default UserLayout;
