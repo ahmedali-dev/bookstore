@@ -1,32 +1,61 @@
-import React, { useEffect } from "react";
-import { useQuery } from "react-query";
-import useApiErrorHandler from "../../hooks/useApiErrorHandler.js";
-import { useAuth } from "../../hooks/useAuth.js";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate.js";
+import React from 'react';
+import homeimg from "./home.jpg"
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import BookGrid from './Bookgrid';
 
 const Home = () => {
-  const [err, setError] = useApiErrorHandler({ err: null, formik: null });
-  const auth = useAuth();
-  const axiosPrivate = useAxiosPrivate();
-  const { isLoading, error, data } = useQuery("getData", function () {
-    return axiosPrivate.get("/", {
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-      },
-    });
-  });
-
-  useEffect(() => {
-    document.title = "home";
-  }, []);
-
-  useEffect(() => {
-    setError(error?.response);
-  }, [error, data, setError]);
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error</div>;
-
-  return <div>Home</div>;
+  const categories = [
+    'Mystery & Thriller / الرومانسية و المغامرة',
+    'Poetry / الشعر',
+    'Law / القانون',
+    'Mystery & Thriller / الرومانسية و المغامرة',
+    'Poetry / الشعر',
+    'Law / القانون',
+    'Mystery & Thriller / الرومانسية و المغامرة',
+    'Poetry / الشعر',
+    'Law / القانون',
+    'Mystery & Thriller / الرومانسية و المغامرة',
+    'Poetry / الشعر',
+    'Law / القانون',
+    'Mystery & Thriller / الرومانسية و المغامرة',
+    'Poetry / الشعر',
+    'Law / القانون',
+  ];
+  return (
+    <div className='home'>
+    <div className="library-home">
+      <div className="library-home__header">
+        <h1 className="library-home__title">Place Where Words Become Life</h1>
+      </div>
+      <div className="library-home__image-container">
+        <div className="library-home__search-overlay">
+          <div className="library-home__search">
+            <input
+              type="text"
+              placeholder="Search"
+              className="library-home__search-input"
+            />
+            <button className="library-home__search-button">
+            <FontAwesomeIcon icon={faSearch}/>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="category-buttons">
+        <h2 className="category-buttons__title">Categories</h2>
+        <div className="category-buttons__grid">
+        {categories.map((category, index) => (
+          <button key={index} className="category-buttons__button">
+            {category}
+          </button>
+        ))}
+        </div>
+    </div>
+    <BookGrid/>
+    </div>
+  );
 };
 
-export default React.memo(Home);
+export default Home;
