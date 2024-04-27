@@ -11,6 +11,7 @@ const NewBook = lazy(() => import("./pages/books/NewBook"));
 const EditBook = lazy(() => import("./pages/books/EditBook"));
 const ViewBook = lazy(() => import("./pages/books/ViewBook"));
 const Cart = lazy(() => import("./pages/Cart/Cart"));
+const Userinfo = lazy(() => import("./pages/UserInfo/UserInfo"));
 function App() {
   // send request use axios
 
@@ -40,6 +41,8 @@ function App() {
                 <Route path="/search" element={<div>search</div>} />
                 <Route path="/books/v/:id" element={<ViewBook />} />
                 <Route path="/cart" element={<Cart/>}/>
+                <Route path="/userinfo" element={<Userinfo/>}/>
+
                 {/* ----------------------------------- */}
                 {/* salerlayout route */}
                 {/* ----------------------------------- */}
