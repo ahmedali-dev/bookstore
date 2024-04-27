@@ -5,33 +5,21 @@ import useAxiosPrivate from "./../../hooks/useAxiosPrivate";
 import useGetCategorys from "./../../hooks/useGetCategorys";
 import React, { useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
-import { updateBook } from "./BookSlice";
+import { selectBooksState, updateBook, updateSuccess } from "./BookSlice";
+import { setError } from "../../Error/ErrorSlice";
 const EditBook = () => {
   const axios = useAxiosPrivate();
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   const usecategory = useGetCategorys();
   const dispatch = useDispatch();
+  const { error, isError, isLoading, isSuccess } = useSelector(selectBooksState);
   const { id } = useParams();
   const query = useQuery("edit", () => {
     return axios.get(`books/${id}`);
-  });
-  const mutation = useMutation((values) => {
-    const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("description", values.description);
-    formData.append("price", values.price);
-    formData.append("count", values.count);
-    formData.append("category_id", values.category);
-    formData.append("cover", values.cover);
-    return axios.post(`books/n/update/${id}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
   });
 
   const formik = useFormik({
@@ -66,20 +54,18 @@ const EditBook = () => {
       category: Yup.string().required("Category is required"),
     }),
     onSubmit: (values) => {
-      console.log(values);
-
-      mutation.mutate(values);
+      dispatch(updateBook({ fetch: axios, id, book: values })).finally(() => {
+        dispatch(updateSuccess());
+      });
     },
   });
 
   useEffect(() => {
-    if (mutation.isSuccess) {
-      // navegate to books page
-      dispatch(updateBook(mutation?.data?.data?.UpdatedBook));
-      navegate("/books");
+    if (isSuccess) {
+      navigate("/books");
       toast.success("Book created successfully");
     }
-  }, [mutation.data, mutation.error, mutation.isSuccess, mutation.isError]);
+  }, [error, isSuccess, isError]);
   useEffect(() => {
     let queryData = [];
     if (query?.data) {
@@ -94,7 +80,7 @@ const EditBook = () => {
     });
   }, [query.data]);
   if (query?.isError) {
-    return <div>{usecategory?.error}</div>;
+    dispatch(setError(query?.error?.response));
   }
 
   if (query?.isLoading) {

@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "./useAuth";
-
+import { useFormikContext } from "formik";
 const useApiErrorHandler = ({ err = null, formik = null }) => {
   const [error, setError] = useState(err || null);
   const [form, setFormik] = useState(formik || null);
   const auth = useAuth();
+  // const formiktest = useFormikContext();
+  // console.log(formiktest);
   const handleError = useCallback(
     (error) => {
       if (!error) return; //toast.error("An unexpected error occurred");
@@ -32,12 +34,26 @@ const useApiErrorHandler = ({ err = null, formik = null }) => {
           toast.error(msg); // Log the error message
           break;
         case status === 400 && ErrCode === "1278cb":
+          console.log(msg);
           // Validation error
-          if (form && msg) {
-            Object.entries(msg).forEach(([key, value]) => {
-              form.setFieldError(key, value.msg);
-            });
-          }
+          // if (form && msg) {
+          let t = "";
+          Object.entries(msg).forEach(([key, value]) => {
+            // form.setFieldError();
+            console.log(key, value.msg);
+            t += `<p>${value.msg}</p>`;
+          });
+          toast.error(
+            <div
+              style={{ fontSize: "1.3rem", whiteSpace: ".5rem" }}
+              dangerouslySetInnerHTML={{ __html: t }}
+            />
+          );
+
+          // }
+          break;
+        case status === 400 && ErrCode === "1278c90":
+          toast.error(msg); // Log the error message
           break;
         case status === 500 && ErrCode === "1278c9":
           // Server error
@@ -55,6 +71,9 @@ const useApiErrorHandler = ({ err = null, formik = null }) => {
     handleError(error);
   }, [error, handleError]);
 
+  const r = [error, setError, form, setFormik];
+  r.push({ ...r });
+  // console.log(r);
   return [error, setError, form, setFormik];
 };
 

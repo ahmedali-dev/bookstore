@@ -11,6 +11,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 const ViewBook = () => {
   const axios = useAxiosPrivate();
+  const [cartFound, setCartFound] = React.useState(false);
   const { id } = useParams();
   const [rv, setReview] = React.useState("");
   const [star, setStar] = React.useState(0);
@@ -46,6 +47,14 @@ const ViewBook = () => {
       reviewsQuery.refetch();
     }
   }, [reviewMutaion.data, reviewMutaion.isError, reviewMutaion.isSuccess]);
+
+  useEffect(() => {
+    try {
+      setCartFound(cartquery?.data?.data[0]?.found);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [cartquery?.data]);
   let bookData = [];
   if (bookData) {
     bookData = query?.data?.data[0];
@@ -93,10 +102,11 @@ const ViewBook = () => {
               <FontAwesomeIcon icon={faEdit} />
               <span> edit</span>
             </Button>
-          ) : cartdata?.found ? (
+          ) : cartFound ? (
             <Button
               onClick={() => {
                 deleteCartMutation.mutate(bookData?.id);
+                setCartFound(false);
               }}
               loading={cartquery.isLoading}
               className="error"
@@ -109,6 +119,7 @@ const ViewBook = () => {
               loading={cartquery.isLoading}
               onClick={() => {
                 AddCartMutation.mutate({ book_id: bookData?.id });
+                setCartFound(true);
               }}
             >
               <FontAwesomeIcon icon={faCartShopping} />

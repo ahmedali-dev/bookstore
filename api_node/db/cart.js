@@ -25,19 +25,26 @@ const addToCart = async (data) => {
 };
 
 const getCartById = async (user_id, book_id) => {
-  const sql = "SELECT count(id) as found FROM cart WHERE user_id = ? AND book_id = ?";
+  const sql = "SELECT count(id) as found FROM cart  WHERE user_id = ? AND book_id = ?";
   const [result] = await connection.execute(sql, [user_id, book_id]);
   return result;
 };
 
-const getCart = async (user_id) => {
-  const sql = "SELECT * FROM cart WHERE user_id = ?";
-  const [result] = await connection.execute(sql, [user_id]);
+const getCart = async (user_id, book_id) => {
+  let sql =
+    "SELECT c.*, b.cover, b.title, b.price,b.count as book_count FROM cart c join books b on c.book_id = b.id WHERE c.user_id = ?";
+  let params = [user_id];
+  if (book_id) {
+    sql += " AND c.id = ?";
+    params.push(book_id);
+  }
+
+  const [result] = await connection.execute(sql, params);
   return result;
 };
 
 const deleteCart = async (user_id, id) => {
-  const sql = "DELETE FROM cart WHERE user_id = ? AND book_id = ?";
+  const sql = "DELETE FROM cart WHERE user_id = ? AND id = ?";
   const [result] = await connection.execute(sql, [user_id, id]);
   return result;
 };
@@ -48,7 +55,7 @@ const updateCart = async (data) => {
   if (count === 0) {
     return deleteCart(user_id, book_id);
   }
-  const sql = "UPDATE cart SET count = ? WHERE user_id = ? AND book_id = ?";
+  const sql = "UPDATE cart SET `count` = ? WHERE user_id = ? AND id = ?";
   const [result] = await connection.execute(sql, [count, user_id, book_id]);
   return result;
 };

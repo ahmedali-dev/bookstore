@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateCart } from "./cartSlice";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
-const BookQuantity = () => {
-  const [quantity, setQuantity] = useState(1);
+const BookQuantity = ({ quantity: q, id }) => {
+  const [quantity, setQuantity] = useState(q || 1);
+  const axios = useAxiosPrivate();
+  const dispatch = useDispatch();
 
   const handleDecrement = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      setQuantity((prev) => prev - 1);
     }
+
+    setTimeout(() => {
+      dispatch(updateCart({ fetch: axios, data: { book_id: id, count: quantity - 1 } }));
+    }, 2000);
   };
 
   const handleIncrement = () => {
-    setQuantity(quantity + 1);
+    if (quantity < 7) {
+      setQuantity((prev) => prev + 1);
+      setTimeout(() => {
+        dispatch(updateCart({ fetch: axios, data: { book_id: id, count: quantity + 1 } }));
+      }, 2000);
+    }
   };
 
   return (

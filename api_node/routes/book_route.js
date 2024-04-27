@@ -4,13 +4,14 @@ const bookController = require("../controllers/book_controller");
 const validation = require("./../utilities/validation");
 const upload = require("../utilities/uploading");
 router.get("/", bookController.getAllBooks);
-router.get("/:id", bookController.getBookByIdValidation, validation, bookController.getBookById);
+router.get("/:id", bookController.validationBookById, validation, bookController.getBookById);
 router.get(
   "/s/:title",
   bookController.getBookByTitleValidation,
   validation,
   bookController.getBookByTitle
 );
+router.get("/top/rate", bookController.getTopBooks);
 router.post(
   "/n/create",
   upload.single("cover"),
@@ -21,7 +22,7 @@ router.post(
 router.post(
   "/n/update/:id",
   upload.single("cover"),
-  bookController.updateBookValidation,
+  bookController.validationBookById,
   validation,
   bookController.updateBook
 );

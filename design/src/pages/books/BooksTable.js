@@ -4,25 +4,27 @@ import { faEye, faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-ic
 import { Link } from "react-router-dom";
 import { useMutation } from "react-query";
 import useAxiosPrivate from "./../../hooks/useAxiosPrivate";
-import { useDispatch } from "react-redux";
-import { deleteOne } from "./BookSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteBook, selectBooksState, updateSuccess } from "./BookSlice";
+import { toast } from "react-toastify";
 
 const Table = ({ data, ...props }) => {
   const axios = useAxiosPrivate();
   const dispatch = useDispatch();
-  const mutation = useMutation("book-delete", (id) => {
-    return axios.delete(`/books/${id}`);
-  });
+  const { isError, isLoading, isSuccess } = useSelector(selectBooksState);
   const handleDelete = (id) => {
-    console.log(id);
-    mutation.mutate(id);
+    dispatch(deleteBook({ fetch: axios, id })).finally(() => {
+      dispatch(updateSuccess());
+    });
   };
 
-  if (!data) return <div>empty</div>;
-  if (mutation.isError) return <div>Error</div>;
-  if (mutation.isLoading) return <div>Loading...</div>;
-  if (mutation.isSuccess) {
-    dispatch(deleteOne({ id: mutation?.data?.data?.id }));
+  if (isError) return <div>Error</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (isSuccess) {
+    toast.dismiss();
+    setTimeout(() => {
+      // toast.success("deleted");
+    }, 500);
   }
   //   return <div></div>;
   return (

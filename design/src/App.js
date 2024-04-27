@@ -3,6 +3,7 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { UnauthenticatedRoute, AuthenticatedRoute } from "./utils/AuthHandler";
 import UserLayout from "./components/layout/UserLayout";
 import SalerLayout from "./components/layout/SellerLayout";
+import Loading from "./components/loading/Loading";
 const Register = lazy(() => import("./pages/register/Register"));
 const SignIn = lazy(() => import("./pages/signin/Signin"));
 const Home = lazy(() => import("./pages/home/Home"));
@@ -19,12 +20,18 @@ function App() {
   }, []);
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div>
+            <Loading width={"100px"} height={"100px"} />
+          </div>
+        }
+      >
         <Routes>
           {/* ----------------------------------- */}
           {/* private route */}
           {/* ----------------------------------- */}
-          {/* <Route element={<AuthenticatedRoute />}> */}
+          <Route element={<AuthenticatedRoute />}>
             {/* ----------------------------------- */}
             {/* userlayout route */}
             {/* ----------------------------------- */}
@@ -39,7 +46,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/search" element={<div>search</div>} />
                 <Route path="/books/v/:id" element={<ViewBook />} />
-                <Route path="/cart" element={<Cart/>}/>
+                <Route path="/cart" element={<Cart />} />
                 {/* ----------------------------------- */}
                 {/* salerlayout route */}
                 {/* ----------------------------------- */}
@@ -51,7 +58,7 @@ function App() {
                 </Route>
               </Route>
             </Route>
-          {/* </Route> */}
+          </Route>
 
           {/* ----------------------------------- */}
           {/* public route */}

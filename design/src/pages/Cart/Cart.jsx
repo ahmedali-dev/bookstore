@@ -1,32 +1,57 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import book from "./book.jpg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import BookQuantity from './BookQuantity';
 import Button from './../../components/Buttons/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { allCart, cartStateSelector, deleteCart, getCart } from './cartSlice';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { setError } from '../../Error/ErrorSlice';
 
 
 const Cart = () => {
-    const itemPrice = 33.3;
-    const cartItems = [1, 2, 3, 4, 5];
+    const dispatch = useDispatch();
+    const {isLoading, isError, isSuccess, error} = useSelector(cartStateSelector);
+    const data = useSelector(allCart);
+    const axios = useAxiosPrivate();
+    // const itemPrice = 33.3;
+    // const cartItems = [1, 2, 3, 4, 5];
+
+    useEffect(()=>{
+      dispatch(getCart({fetch: axios}));
+    },[]);
+
+    useEffect(() => {
+      if (isError) {
+        dispatch(setError(error));
+      }
+    }, [isError,error]);
+    if (isError) return <div>Error</div>;
+    if (isLoading) return <div>Loading...</div>;
   
+    console.log(data)
+    let cartItems = [];
+    if(data){
+      cartItems = data;
+    }
     return (
       <div className="cart-container">
         <div className="cart-items">
           {cartItems.map((item, index) => (
             <div key={index} className="cart-item">
-              <img src={book} alt="Book" />
+              <img src={`${process.env.REACT_APP_API_URL}images/${item?.cover}`} alt="Book" />
               <div className="item-details">
-                <p>System Design Interview - An insider's guide</p>
-                <p className="price">Price: ${itemPrice}</p>
-                <BookQuantity/>
+                <p>{item?.title?.slice(0, 50)}</p>
+                <p className="price">Price: ${item.price}</p>
+                <BookQuantity quantity={item?.count} id={item.id}/>
               </div>
-              <span className="item-quantity"><FontAwesomeIcon icon={faTrash}/></span>
+              <span onClick={()=>{dispatch(deleteCart({fetch: axios, id: item?.id}))}} className="item-quantity"><FontAwesomeIcon icon={faTrash}/></span>
             </div>
           ))}
         </div>
         <div className="cart-summary">
-          <p className="subtotal">Cart Subtotal: ${itemPrice * cartItems.length}</p>
+          <p className="subtotal">Cart Subtotal: EGL {cartItems.reduce((acc, item) => parseFloat(acc) + (parseFloat(item.price) * item.count), 0)}</p>
           <Button>Checkout</Button>
         </div>
       </div>

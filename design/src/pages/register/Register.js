@@ -4,21 +4,11 @@ import RegisterForm from "./RegisterForm";
 import logo from "./../../assets/image/logo.png";
 import image_side from "./../../assets/image/image.jpg";
 import validationSchema from "./RegisterValidation";
-import { Link, useNavigate } from "react-router-dom";
-import axiosNoAuth from "../../utils/axiosNoAuth";
-import { useMutation } from "react-query";
-import useApiErrorHandler from "../../hooks/useApiErrorHandler";
-import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import useRegister from "../../hooks/useRegister";
 
 const Register = () => {
-  const Navigate = useNavigate();
-  const { mutate, isSuccess, isError, isLoading, error } = useMutation(
-    (formData) => axiosNoAuth.post("/register", formData)
-  );
-
-  const [err, setError, errForm, errSetFormik] = useApiErrorHandler({
-    err: error,
-  });
+  const mutation = useRegister();
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -27,24 +17,9 @@ const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const reponse = mutate(values);
+      const reponse = mutation.mutate(values);
     },
   });
-
-  useEffect(() => {
-    errSetFormik(formik);
-
-    if (isSuccess) {
-      toast.success("Register successfully");
-      Navigate("/signin");
-    } else if (isError) {
-      if (error?.response) {
-        setError(error?.response);
-      } else {
-        setError(error);
-      }
-    }
-  }, [isError, isSuccess]);
 
   useEffect(() => {
     document.title = "Register";
@@ -63,7 +38,7 @@ const Register = () => {
               <p>Enter credentials to continue</p>
             </div>
           </header>
-          <RegisterForm isLoading={isLoading} formik={formik} />
+          <RegisterForm isLoading={mutation?.isLoading} formik={formik} />
 
           <div className="switch">
             <Link to={"/signin"}>

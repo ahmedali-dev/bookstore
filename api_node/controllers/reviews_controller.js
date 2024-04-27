@@ -1,6 +1,6 @@
 const { body, param } = require("express-validator");
 const Review = require("../db/reviews");
-
+const { ApiError } = require("../utilities/ApiError");
 const getReviewValidation = [
   param("id").isString().isLength({ min: 1 }).withMessage("Book ID is required"),
 ];
@@ -10,7 +10,7 @@ const getReviews = async (req, res, next) => {
     const reviews = await Review.getReviews("*", "where book_id = ?", [id]);
     return res.status(200).json(reviews);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(ApiError.customError(500, "Something went wrong"));
   }
 };
 
@@ -25,11 +25,12 @@ const addReview = async (req, res, next) => {
   const { id: user_id } = req.user;
   try {
     const data = { rating, review, book_id, user_id };
-    console.log("🚀 ~ addReview ~ data:", data);
+
     const result = await Review.addReview(data);
-    return res.status(201).json(result);
+    const reviews = await Review.getReviews("*", "where book_id = ?", [book_id]);
+    return res.status(201).json({ result, reviews });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(ApiError.customError(500, "Something went wrong"));
   }
 };
 module.exports = { getReviewValidation, getReviews, addReviewValidation, addReview };
