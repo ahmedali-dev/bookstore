@@ -36,6 +36,10 @@ class ApiError {
   static customError(status, message) {
     return new ApiError(status, "1278c90", message);
   }
+
+  static addressNotFound(message = "no address found") {
+    return new ApiError(404, "1278c91", message);
+  }
 }
 
 // Error handling middleware
@@ -47,9 +51,7 @@ const errorHandler = (err, req, res, next) => {
 
   // Handle other errors
   console.error("e->", err);
-  return res
-    .status(500)
-    .json({ ErrCode: "1278c9", msg: "Internal Server Error" });
+  return res.status(500).json({ ErrCode: "1278c9", msg: "Internal Server Error" });
 };
 
 module.exports = {

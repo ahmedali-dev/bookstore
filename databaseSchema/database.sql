@@ -87,3 +87,55 @@ SET MESSAGE_TEXT = "can not add your book in cart";
 END IF;
 END;
 $$ DELIMITER;
+
+create table if not exists government (
+    `id` VARCHAR(256) PRIMARY KEY DEFAULT MD5(CONCAT(RAND(), NOW())),
+    `gov` varchar(256) not null,
+    `created` TIMESTAMP DEFAULT now(),
+    `updated` TIMESTAMP default now()
+);
+
+INSERT INTO government (gov)
+VALUES
+('cairo-القاهرة'),
+('alexandria-الإسكندرية'),
+('giza-الجيزة'),
+('monufia-المنوفية'),
+('qalyubia-القليوبية'),
+('sharqia-الشرقية'),
+('gharbia-الغربية'),
+('minya-المنيا'),
+('fayoum-الفيوم'),
+('asyut-أسيوط'),
+('sohag-سوهاج'),
+('qena-قنا'),
+('luxor-الأقصر'),
+('aswan-أسوان'),
+('beheira-البحيرة'),
+('damietta-دمياط'),
+('port_said-بورسعيد'),
+('ismailia-الإسماعيلية'),
+('suez-السويس'),
+('kafr_el_sheikh-كفر الشيخ'),
+('matrouh-مطروح'),
+('new_valley-الوادي الجديد'),
+('north_sinai-شمال سيناء'),
+('south_sinai-جنوب سيناء'),
+('red_sea-البحر الأحمر'),
+('dakahlia-الدقهلية'),
+('suez_canal-قناة السويس');
+
+
+create table if NOT exists address (
+    `id` VARCHAR(256) PRIMARY KEY DEFAULT MD5(CONCAT(RAND(), NOW())),
+    `user_id` varchar(256) not null,
+    `username` varchar(32) not null,
+    `mobile` int not null,
+    `government` varchar(256) not null,
+    `city` varchar(256) not null,
+    `address` text not null,
+    created TIMESTAMP default now(),
+    updated timestamp default now(),
+    foreign key(user_id) references users(id) on delete cascade,
+    foreign key(government) references government(id) on delete cascade
+);

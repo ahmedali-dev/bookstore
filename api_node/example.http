@@ -1,0 +1,26 @@
+@base = http://localhost:5000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ill1dXV1bWkiLCJlbWFpbCI6ImNoZXJpZTYzN0BmdGhjYXBpdGFsLmNvbSIsImlkIjoiYWRjYTdlYTktMDYyNC00ZWI2LTgwMmQtMDhjODRlM2M0ZWFjIiwiYXZhdGFyIjoiYXZhdGFyLnBuZyIsImlhdCI6MTcxNDEzMTM3MywiZXhwIjoxNzE1NDI3MzczfQ.Ldz4GryqaIEKFTBZgMmZ5-KOnmStbtZGCMb7QTqQcHE
+
+
+
+POST {{base}}/address HTTP/1.1
+Authorization: Barear {{token}}
+Content-Type: application/json
+
+{
+    "username": "ahmedali",
+    "mobile": 1000000000,
+    "government": "0ffb83c6dd9b011c33f305c48ce06eb9",
+    "city": "faq",
+    "address": "مصر القديمه قسم الدقي العجوزه"
+}
+
+###
+GET {{base}}/address HTTP/1.1
+Authorization: Barear {{token}} 
+
+###
+GET {{base}}/government HTTP/1.1
+Authorization: bearer {{token}}
+
+

@@ -1,0 +1,120 @@
+// AddressForm.scss
+.address-form {
+  margin-top: 50px;
+  width: 100%;
+  // background-color: #f5f5f5;
+  padding: 2rem;
+  border-radius: 8px;
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .navigation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    span {
+      color: #666;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+
+      &:hover {
+        background-color: #eee;
+      }
+
+      &.active {
+        background-color: #4caf50;
+        color: #fff;
+      }
+    }
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .mobile {
+      position: relative;
+      display: flex;
+      align-items: center;
+      // justify-content: center;
+      width: 100%;
+      & > div {
+        width: 100%;
+
+        input {
+          padding-left: 3.5rem;
+        }
+      }
+      & > p {
+        position: absolute;
+        z-index: 1;
+        width: 2.8rem;
+        height: 2.8rem;
+        background: var(--primarycolor);
+        border-radius: 0.5rem;
+        box-shadow: var(--shadow);
+        top: 71%;
+        left: 0.6rem;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        transition: all 0.4s ease-in-out;
+      }
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      select,
+      textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+        option {
+          color: #fff;
+          font-size: 1.3rem;
+          background-color: var(--primarycolor);
+        }
+
+        &:focus {
+          outline: none;
+          border-color: #4caf50;
+          box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 11vh;
+      }
+    }
+
+    .submit-btn {
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 1.45rem 1.5rem;
+      border-radius: 4px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+  }
+}

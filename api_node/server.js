@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://g28s4ftv-3000.uks1.devtunnels.ms",
     credentials: true,
   })
 );
@@ -39,6 +39,8 @@ app.use("/categorys", require("./routes/categorys_route"));
 app.use("/create", require("./routes/create_route"));
 app.use("/reviews", require("./routes/reviews_route"));
 app.use("/cart", require("./routes/cart_route"));
+app.use("/address", require("./routes/address_route"));
+app.use("/government", require("./routes/government_route"));
 
 app.use((err, req, res, next) => {
   if (err instanceof multer.MulterError) {

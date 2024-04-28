@@ -55,6 +55,9 @@ const useApiErrorHandler = ({ err = null, formik = null }) => {
         case status === 400 && ErrCode === "1278c90":
           toast.error(msg); // Log the error message
           break;
+        case status === 404 && ErrCode === "1278c91":
+          toast.error(msg); // Log the error message
+          break;
         case status === 500 && ErrCode === "1278c9":
           // Server error
           toast.error(msg); // Log the error message

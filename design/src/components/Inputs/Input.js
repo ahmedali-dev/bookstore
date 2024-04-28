@@ -37,18 +37,18 @@ const ErrorMessage = styled.div`
   color: var(--errorcolor);
 `;
 const Input = ({ label, formik, ...rest }) => {
-  const Geterror = formik.errors[rest.name] && formik.touched[rest.name];
+  const Geterror = formik?.errors[rest?.name] && formik?.touched[rest?.name];
   return (
     <InputContainer>
-      {label?.length > 0 ? <label htmlFor={rest.id ? rest.id : ""}>{label}</label> : ""}
+      {label?.length > 0 ? <label htmlFor={rest?.id ? rest?.id : ""}>{label}</label> : ""}
       <InputStyle
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        defaultValue={formik.values[rest.name]}
+        onChange={formik?.handleChange}
+        onBlur={formik?.handleBlur}
+        defaultValue={formik?.values[rest?.name]}
         {...rest}
-        className={`${Geterror ? "error" : ""} ${rest.className ? rest.className : ""} `}
+        className={`${Geterror ? "error" : ""} ${rest?.className ? rest?.className : ""} `}
       />
-      {Geterror ? <ErrorMessage>{formik.errors[rest.name]}</ErrorMessage> : ""}
+      {Geterror ? <ErrorMessage>{formik?.errors[rest?.name]}</ErrorMessage> : ""}
     </InputContainer>
   );
 };

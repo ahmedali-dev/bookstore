@@ -1,15 +1,22 @@
 // ShoppingCart.scss
 .cart-container {
-  width: 100%;
+  width: 100rem;
+  margin: 5rem auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   grid-column: 1/-1;
-  margin-top: 2rem;
+
+  @media screen and (max-width: 1000px) {
+    width: 79%;
+  }
   .cart-items {
     margin-right: 16px;
     flex-basis: 100%;
-    // background-color: var(--theardcolor);
+    background-color: var(--theardcolor);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+
     .cart-item {
       display: flex;
       align-items: center;
@@ -17,6 +24,12 @@
       padding: 10px;
       gap: 1rem;
 
+      &:hover {
+        transform: scale(1.03);
+        box-shadow: var(--shadow);
+        background-color: var(--lastcolor);
+        border-radius: 0.5rem;
+      }
       img {
         width: 64px;
         height: 80px;
@@ -103,6 +116,7 @@
 @media screen and (max-width: 768px) {
   .cart-container {
     flex-flow: column;
+    width: 96%;
     .cart-items {
       width: 100%;
     }
