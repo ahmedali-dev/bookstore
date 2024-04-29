@@ -1,19 +1,9 @@
-import { useQuery } from "react-query";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Table from "./BooksTable";
-import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BookHeader from "./BookHeader";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  allBooks,
-  getBooks,
-  selectBooksState,
-  selectIsLoading,
-  setBooks,
-  updateSuccess,
-  useGetAllBooksQuery,
-} from "./BookSlice";
+import { allBooks, getBooks, selectBooksState, updateSuccess } from "./BookSlice";
 import { setError } from "../../Error/ErrorSlice";
 import Button from "../../components/Buttons/Button";
 
@@ -22,7 +12,7 @@ const Books = () => {
   const axios = useAxiosPrivate();
   const dispatch = useDispatch();
   const books = useSelector(allBooks);
-  const { isError, isLoading, isSuccess, error } = useSelector(selectBooksState);
+  const { isError, isLoading, error } = useSelector(selectBooksState);
 
   useEffect(() => {
     dispatch(getBooks({ fetch: axios })).finally(() => {

@@ -66,8 +66,8 @@ const Address = () => {
     validationSchema: v,
     onSubmit: (values) => {
       console.log(formik.dirty);
-      const hasChanged = hasDataChanged(addressData, values);
-      if (!hasChanged) {
+      // const hasChanged = hasDataChanged(addressData, values);
+      if (false) {
         toast.warn("No changes made");
         return;
       }

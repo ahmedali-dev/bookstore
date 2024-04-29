@@ -30,16 +30,23 @@ const getCartById = async (user_id, book_id) => {
   return result;
 };
 
-const getCart = async (user_id, book_id) => {
+const getCart = async (user_id, book_id = null) => {
   let sql =
     "SELECT c.*, b.cover, b.title, b.price,b.count as book_count FROM cart c join books b on c.book_id = b.id WHERE c.user_id = ?";
   let params = [user_id];
   if (book_id) {
+    console.log("🚀 ~ getCart ~ book_id:", book_id);
     sql += " AND c.id = ?";
     params.push(book_id);
   }
 
   const [result] = await connection.execute(sql, params);
+  return result;
+};
+
+const deleteAllCart = async (user_id) => {
+  const sql = "DELETE FROM cart WHERE user_id = ?";
+  const [result] = await connection.execute(sql, [user_id]);
   return result;
 };
 
@@ -60,4 +67,4 @@ const updateCart = async (data) => {
   return result;
 };
 
-module.exports = { addToCart, getCartById, getCart, updateCart, deleteCart };
+module.exports = { addToCart, getCartById, getCart, updateCart, deleteCart, deleteAllCart };

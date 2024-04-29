@@ -1,59 +1,3 @@
-.table-container {
-  overflow-x: auto;
-
-  width: 100%;
-
-  .table {
-    width: 100%;
-    // display: block;
-    border-collapse: collapse;
-    padding: 1rem;
-    text-align: center;
-    box-shadow: var(--shadow);
-    font-size: 1.2rem;
-    thead {
-      background: var(--theardcolor);
-      tr {
-        th {
-          font-size: 1rem;
-          color: #333;
-          line-height: 1.4;
-          text-transform: uppercase;
-          background-color: transparent;
-          padding: 1rem;
-        }
-      }
-    }
-
-    tbody {
-      tr {
-        td {
-          button {
-            background: transparent;
-            border: none;
-
-            &.error {
-              color: var(--errorcolor);
-            }
-          }
-
-          a {
-            &.view {
-              color: var(--primarycolor);
-            }
-            &.edit {
-              color: var(--seconderycolor);
-            }
-          }
-        }
-      }
-    }
-    @media screen and (max-width: 400px) {
-      width: 20rem;
-    }
-  }
-}
-
 .tools {
   display: flex;
   margin-bottom: 2rem;
@@ -70,37 +14,6 @@
       color: white;
       box-shadow: var(--shadow);
       width: 100%;
-    }
-  }
-
-  .search {
-    // display: flex;
-    position: relative;
-    // width: 90%;
-    flex-shrink: 1;
-    flex-grow: 1;
-    input {
-      width: 100%;
-      padding: 1.3rem 0.5rem;
-    }
-    button {
-      position: absolute;
-      right: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: none;
-      border: none;
-      color: var(--primarycolor);
-      font-size: 1.5rem;
-      font-weight: bold;
-      padding: 1rem 2rem;
-      cursor: pointer;
-      //   height: 2
-      //   padding: 0.5rem;
     }
   }
 }

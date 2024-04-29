@@ -80,8 +80,11 @@
       color: #666;
       margin-bottom: 1.5rem;
       font-size: 1.2rem;
+      margin-bottom: 1rem;
       span {
+        display: block;
         color: var(--errorcolor);
+        margin-bottom: 1rem;
       }
     }
 

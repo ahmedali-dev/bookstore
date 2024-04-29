@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import useAxiosPrivate from "./../../hooks/useAxiosPrivate";
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks, searchBook, selectBooksState, setBooks, updateSuccess } from "./BookSlice";
+import Search from "../../components/Inputs/search";
 
 const BookHeader = ({ page, setPage }) => {
   const [search, setSearch] = useState("");
@@ -34,12 +35,11 @@ const BookHeader = ({ page, setPage }) => {
       <div className="newbook">
         <Link to={"/books/new"}>Add new book</Link>
       </div>
-      <div className="search">
-        <DefaultInput onInput={handleChange} type="text" placeholder="Search" />
-        <button onClick={searchHandle}>
-          {isLoading ? "Loading..." : <FontAwesomeIcon icon={faSearch} />}
-        </button>
-      </div>
+      <Search
+        input={{ onInput: handleChange }}
+        button={{ onClick: searchHandle }}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

@@ -64,7 +64,7 @@ const useApiErrorHandler = ({ err = null, formik = null }) => {
           break;
         default:
           // Other errors
-          toast.error("An unexpected error occurred:", msg || error);
+          toast.error(`An unexpected error occurred: ${msg}`);
       }
     },
     [form]

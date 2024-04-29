@@ -13,7 +13,7 @@ const EditBook = lazy(() => import("./pages/books/EditBook"));
 const ViewBook = lazy(() => import("./pages/books/ViewBook"));
 const Cart = lazy(() => import("./pages/Cart/CartRoutes"));
 const Userinfo = lazy(() => import("./pages/UserInfo/UserInfo"));
-const Checkout = lazy(() => import("./pages/checkout/Checkout"));
+const OrderForSeller = lazy(() => import("./pages/orders/OrderForSeller"));
 function App() {
   // send request use axios
 
@@ -61,6 +61,7 @@ function App() {
                   <Route path="/books" element={<Books />} />
                   <Route path="/books/new" element={<NewBook />} />
                   <Route path="/books/edit/:id" element={<EditBook edit={true} />} />
+                  <Route path="/orders/*" element={<OrderForSeller />} />
                 </Route>
               </Route>
             </Route>

@@ -51,7 +51,7 @@ const SellerLayout = () => {
           <Nav to={"/books"} className={"link"} icon={faBookBookmark}>
             Books
           </Nav>
-          <Nav to={"/seller/orders"} className={"link"} icon={faBasketShopping}>
+          <Nav to={"/orders"} className={"link"} icon={faBasketShopping}>
             Orders
           </Nav>
         </div>

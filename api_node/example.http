@@ -23,4 +23,24 @@ Authorization: Barear {{token}}
 GET {{base}}/government HTTP/1.1
 Authorization: bearer {{token}}
 
+###
+GET {{base}}/cart HTTP/1.1
+Authorization: b {{token}}
 
+
+###
+GET {{base}}/checkout HTTP/1.1
+Authorization: be {{token}}
+
+###
+GET {{base}}/checkout/seller HTTP/1.1
+Authorization: be {{token}}
+
+
+###
+GET {{base}}/checkout/seller/43ba1cd5-38c8-4a61-9dbb-4bf5fd6e0579 HTTP/1.1
+Authorization: be {{token}}
+
+###
+POST {{base}}/checkout HTTP/1.1
+Authorization: b {{token}}
