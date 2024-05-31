@@ -41,18 +41,19 @@ const NewBook = () => {
       category: "",
       cover: [],
     },
-    // validationSchema: addNewBookVaidation,
+    validationSchema: addNewBookVaidation,
     onSubmit: (values) => {
-      dispatch(addBook({ fetch: axios, book: values }));
+      dispatch(addBook({ fetch: axios, book: values })).finally(()=> {
+        if(!isError) {
+          dispatch(updateSuccess());
+          navegate("/books");
+          toast.success("Book created successfully");
+        }
+      });
     },
   });
 
   useEffect(() => {
-    if (isSuccess) {
-      dispatch(updateSuccess());
-      navegate("/books");
-      toast.success("Book created successfully");
-    }
     if (isError) {
       dispatch(setError(error));
     }

@@ -40,6 +40,9 @@ class ApiError {
   static addressNotFound(message = "no address found") {
     return new ApiError(404, "1278c91", message);
   }
+  static userSuspended(message = "user suspended") {
+    return new ApiError(403, "1278c92", message);
+  }
 }
 
 // Error handling middleware

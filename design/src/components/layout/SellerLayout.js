@@ -29,8 +29,12 @@ const SellerLayout = () => {
     });
   }, [sidebarToggle]);
   return (
-    <>
+    <div className="seller-container">
       <input ref={sidebarToggle} type="checkbox" id="sidebar-toggle" />
+      <label htmlFor="sidebar-toggle" className="sidebar-toggle-mobile">
+        {" "}
+        <FontAwesomeIcon icon={faChevronRight} />
+      </label>
       <div className="sidebar">
         <div className="header">
           <span>Dashboard</span>
@@ -44,22 +48,24 @@ const SellerLayout = () => {
         </div>
 
         <hr className="s" />
-        <div className="sidebar-items">
-          <Nav to={"/seller"} className={"link"} icon={faDashboard}>
-            Dashboard
-          </Nav>
-          <Nav to={"/books"} className={"link"} icon={faBookBookmark}>
-            Books
-          </Nav>
-          <Nav to={"/orders"} className={"link"} icon={faBasketShopping}>
-            Orders
-          </Nav>
+        <div className="list">
+          <div className="sidebar-items">
+            <Nav to={"/seller"} className={"link"} icon={faDashboard}>
+              Dashboard
+            </Nav>
+            <Nav to={"/books"} className={"link"} icon={faBookBookmark}>
+              Books
+            </Nav>
+            <Nav to={"/orders"} className={"link"} icon={faBasketShopping}>
+              Orders
+            </Nav>
+          </div>
         </div>
       </div>
       <section className="sellerContent">
         <Outlet />
       </section>
-    </>
+    </div>
   );
 };
 

@@ -12,11 +12,12 @@ $height: 66.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.2rem solid var(--theardcolor);
-    // padding: 1rem;
+    border: 0.2rem solid var(--primarycolor);
+    box-shadow: var(--shadow);
     border-radius: 0.5rem;
     width: $width;
     min-height: $height;
+    border-radius: 0.5rem;
 
     .form-group {
       width: 40%;

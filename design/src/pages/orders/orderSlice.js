@@ -54,6 +54,18 @@ export const getOrderBySeller = createAsyncThunk(
   }
 );
 
+export const searchOrderUsingSeller = createAsyncThunk(
+  "orders/searchOrderUsingSeller",
+  async ({ fetch, search }, { rejectWithValue }) => {
+    try {
+      const res = await fetch.get(`/checkout/seller/search/${search}`);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const orderSlice = createSlice({
   name: "order",
   initialState,
@@ -81,6 +93,16 @@ export const orderSlice = createSlice({
     });
 
     builderHandle(builder, getOrderBySeller, ({ error, state, action }) => {
+      if (error) {
+        console.log("🚀 ~ error:", action);
+        state.error = action.payload.response;
+        return;
+      }
+      console.log(action.payload);
+      state.seller = action.payload;
+    });
+
+    builderHandle(builder, searchOrderUsingSeller, ({ error, state, action }) => {
       if (error) {
         console.log("🚀 ~ error:", action);
         state.error = action.payload.response;

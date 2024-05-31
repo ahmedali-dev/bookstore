@@ -1,12 +1,31 @@
 .table-container {
   margin-top: 2rem;
-  overflow-x: auto;
   border-radius: 0.5rem;
-  width: 100%;
+  // max-width: 100rem;
+  overflow: hidden;
+  overflow-x: auto;
+  box-shadow: var(--shadow);
+  // @media screen and (max-width: 1000px) {
+  //   width: 70rem;
+  //   margin: 2rem auto;
+  // }
+
+  // @media screen and (max-width: 700px) {
+  //   width: 40rem;
+  // }
+
+  // @media screen and (max-width: 400px) {
+  //   width: 20rem;
+  // }
 
   .table {
-    width: 100%;
+    // width: 100%;
+    width: max-content;
     // display: block;
+
+    @media screen and (min-width: 1000px) {
+      width: 100%;
+    }
     border-collapse: collapse;
     padding: 1rem;
     text-align: center;
@@ -22,6 +41,7 @@
           text-transform: uppercase;
           background-color: transparent;
           padding: 1rem;
+          width: max-content;
         }
       }
     }
@@ -31,6 +51,12 @@
         td {
           margin-top: 1rem;
           padding: 1rem 0;
+
+          img {
+            width: 5rem;
+            height: 7rem;
+            object-fit: fill;
+          }
           button {
             background: transparent;
             border: none;
@@ -51,8 +77,8 @@
         }
       }
     }
-    @media screen and (max-width: 400px) {
-      width: 20rem;
-    }
+    // @media screen and (max-width: 400px) {
+    //   width: 20rem;
+    // }
   }
 }

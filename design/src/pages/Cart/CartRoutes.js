@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import Cart from "../Cart/Cart";
+import Cart from "./Cart";
 import Checkout from "../checkout/Checkout";
 
 const CartRoutes = () => {

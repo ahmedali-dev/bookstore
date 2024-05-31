@@ -99,28 +99,33 @@ VALUES ('cairo-القاهرة'),
     ('red_sea-البحر الأحمر'),
     ('dakahlia-الدقهلية'),
     ('suez_canal-قناة السويس');
-drop table if exists orders;
-create table if not exists orders (
-    `id` VARCHAR(256) PRIMARY KEY DEFAULT MD5(CONCAT(RAND(), NOW())),
-    `user_id` varchar(256) not null,
-    `seller_id` varchar(256) not null,
-    `shipping` decimal(10, 1),
-    `address_id` varchar(256) not null,
-    `created` TIMESTAMP default now(),
-    `updated` TIMESTAMP default now(),
-    foreign key(user_id) references users(id) on delete cascade,
-    foreign key(seller_id) references users(id) on delete cascade,
-    foreign key(address_id) references address(id) on delete cascade
-);
-drop table if exists order_item;
-create table if not exists order_item (
-    `id` VARCHAR(256) PRIMARY KEY DEFAULT MD5(CONCAT(RAND(), NOW())),
-    `book_id` varchar(256) not null,
-    `order_id` varchar(256) not null,
-    `count` int not null,
-    `status` varchar(256) default 'pending',
-    `created` TIMESTAMP default now(),
-    `updated` TIMESTAMP default now(),
-    foreign key(book_id) references books(id) on delete cascade,
-    foreign key(order_id) references orders(id) on delete cascade
-);
+CREATE TABLE `orders` (
+    `id` varchar(256) NOT NULL DEFAULT md5(concat(rand(), current_timestamp())),
+    `user_id` varchar(256) NOT NULL,
+    `seller_id` varchar(256) NOT NULL,
+    `shipping` decimal(10, 1) DEFAULT 0.0,
+    `status` varchar(256) NOT NULL DEFAULT 'pending',
+    `address_id` varchar(256) NOT NULL,
+    `created` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+CREATE TABLE `order_items` (
+    `id` varchar(256) NOT NULL DEFAULT md5(concat(rand(), current_timestamp())),
+    `book_id` varchar(256) NOT NULL,
+    `order_id` varchar(256) NOT NULL,
+    `count` int(11) NOT NULL,
+    `status` varchar(256) DEFAULT 'pending',
+    `created` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+CREATE TABLE `address` (
+    `id` varchar(256) NOT NULL DEFAULT md5(concat(rand(), current_timestamp())),
+    `user_id` varchar(256) NOT NULL,
+    `username` varchar(32) NOT NULL,
+    `mobile` int(11) NOT NULL,
+    `government` varchar(256) NOT NULL,
+    `city` varchar(256) NOT NULL,
+    `address` text NOT NULL,
+    `created` timestamp NOT NULL DEFAULT current_timestamp(),
+    `updated` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;

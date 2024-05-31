@@ -11,5 +11,20 @@ router.get(
   checkoutController.getOrderBySellerById
 );
 router.post("/", checkoutController.createOrder);
+router.patch(
+  "/seller/:id",
+  checkoutController.updateValidation,
+  validation,
+  checkoutController.updateOrder
+);
+
+router.get(
+  "/seller/search/:search",
+  checkoutController.validationSearch,
+  validation,
+  checkoutController.getOrderBySellerSearch
+);
+
+router.get("/seller/getTotal/GovOrder", checkoutController.getTotalOrder);
 
 module.exports = router;

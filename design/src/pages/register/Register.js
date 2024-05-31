@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import RegisterForm from "./RegisterForm";
 import logo from "./../../assets/image/logo.png";

@@ -23,7 +23,7 @@ const Informations = () => {
           <p>Email</p>
           <h1>{decoded.email}</h1>
         </div>
-        <button>Logout</button>
+        <button onClick={auth.logout}>Logout</button>
       </div>
     </div>
   );

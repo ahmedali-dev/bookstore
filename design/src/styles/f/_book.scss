@@ -233,3 +233,26 @@
     }
   }
 }
+
+.edit-book-container {
+  &__edit-book {
+    padding: 2rem;
+
+    img {
+      width: 100%;
+      height: 40rem;
+      margin-bottom: 2rem;
+    }
+
+    h1,
+    h2,
+    h4,
+    p {
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: var(--primarycolor);
+    }
+  }
+}

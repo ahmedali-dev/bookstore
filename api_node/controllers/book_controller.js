@@ -63,6 +63,24 @@ const getBookByTitle = async (req, res, next) => {
   }
 };
 
+const searchValidation = [
+  param("search").isString().isLength({ min: 1 }).withMessage("search is required"),
+];
+
+const search = async (req, res, next) => {
+  const { search } = req.params;
+  const { page = 1, pageSize = 30 } = req.query;
+  try {
+    console.log("🚀 ~ search ~ search:", search, page, pageSize);
+    // return res.send({ search, page, pageSize });
+    const result = await books.getBookByTitle(search, page, pageSize);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log("🚀 ~ search ~ error:", error);
+    next(ApiError.customError(500, "Something went wrong"));
+  }
+};
+
 const createNewBookValidation = [
   body("title").isString().isLength({ min: 8, max: 256 }).withMessage("title is required"),
   body("category_id").isString().isLength({ min: 1 }).withMessage("category_id is required"),
@@ -183,4 +201,6 @@ module.exports = {
   updateBook,
   deleteBookValidation,
   deleteBook,
+  search,
+  searchValidation,
 };

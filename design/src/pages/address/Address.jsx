@@ -9,6 +9,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import useGetGovernment from "../../hooks/useGetGovernment";
+import Selects from "../../components/select/Select";
 
 const v = Yup.object({
   username: Yup.string()
@@ -135,21 +136,20 @@ const Address = () => {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="government">Government:</label>
-          <select name="government" id="government" {...formik.getFieldProps("government")}>
-            {egyptGovernorates?.map((index, i) => {
-              return (
-                <option defaultValue={i === 1 ? index.id : ""} key={index.id} value={index?.id}>
-                  {index?.gov}
-                </option>
-              );
-            })}
-          </select>
-          {formik.touched.government && formik.errors.government ? (
-            <div style={{ color: "var(--errorcolor)" }}>{formik.errors.government}</div>
-          ) : null}
-        </div>
+        <Selects.Select label={"Government"} formik={formik} id={"government"} name={"government"}>
+          {egyptGovernorates?.map((index, i) => {
+            console.log("addresss data", index);
+            return (
+              <Selects.Option
+                // defaultValue={i === 1 ? index.id : ""}
+                key={index.id}
+                value={index?.id}
+              >
+                {index?.gov}
+              </Selects.Option>
+            );
+          })}
+        </Selects.Select>
 
         <Input
           formik={formik}

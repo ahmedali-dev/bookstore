@@ -5,7 +5,7 @@ const RegisterForm = ({ formik, ...props }) => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <Input
-        lable={"Username"}
+        label={"Username"}
         id={"username"}
         formik={formik}
         name={"username"}
@@ -14,7 +14,7 @@ const RegisterForm = ({ formik, ...props }) => {
       />
 
       <Input
-        lable={"Email"}
+        label={"Email"}
         placeholder={"Email"}
         name="email"
         type="text"
@@ -28,7 +28,7 @@ const RegisterForm = ({ formik, ...props }) => {
         formik={formik}
         placeholder={"Password"}
         id="password"
-        lable={"Password"}
+        label={"Password"}
       />
 
       <Button

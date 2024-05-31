@@ -6,8 +6,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrders, orderState, selectOrder } from "./orderSlice";
 
-const OrderItem = ({ order }) => {
-  const { title, status, count, created, cover } = order;
+const OrderItem = ({ order, status }) => {
+  const { title, count, created, cover } = order;
 
   return (
     <div className="order-item">
@@ -53,11 +53,7 @@ const Orders = () => {
   return (
     <div className="orders-table">
       <div className="table-container">
-        {/* {orders.map((order, index) => (
-          <OrderItem key={index} order={order} />
-        ))} */}
         {orderData?.map((order, index) => {
-          console.log("order", order);
           return (
             <>
               <div className="order-group" key={index}>
@@ -67,13 +63,13 @@ const Orders = () => {
                   Order SubTotal:{" "}
                   {order?.orders?.reduce((o, item) => {
                     return parseFloat(o) + parseFloat(item?.price) * parseFloat(item?.count);
-                  }, 0)}
+                  }, 0) + parseFloat(order.shipping)}
                 </h4>
 
                 {order?.orders?.map((item) => {
                   return (
                     <>
-                      <OrderItem key={item.id} order={item} />
+                      <OrderItem key={item.id} order={item} status={order.status ?? "pending"} />
                     </>
                   );
                 })}

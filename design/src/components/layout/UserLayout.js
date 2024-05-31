@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { DefaultInput } from "../Inputs/Input";
 import Logo from "./../../assets/image/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,6 +25,8 @@ const Nav = ({ to, icon, className, children }) => (
 const UserLayout = () => {
   const auth = useAuth();
   const decoded = jwtDecode(auth.token);
+  const navigate = useNavigate();
+  const [search, setSearch] = React.useState("");
   console.log(decoded);
   return (
     <>
@@ -37,8 +39,14 @@ const UserLayout = () => {
             <img src={Logo} alt="Logo" />
           </div>
           <div className="search">
-            <DefaultInput placeholder="Search" />
-            <button>
+            <DefaultInput onInput={(e) => setSearch(e.target.value)} placeholder="Search" />
+            <button
+              onClick={() => {
+                if (search.length > 0) {
+                  navigate(`/search/${search}`);
+                }
+              }}
+            >
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </button>
           </div>

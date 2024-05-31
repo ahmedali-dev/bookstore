@@ -18,6 +18,7 @@ const addToCart = async (req, res, next) => {
     const cartFromDb = await cart.addToCart({ user_id, book_id, count });
     res.status(200).json(cartFromDb);
   } catch (error) {
+    console.log("🚀 ~ addToCart ~ error:", error);
     next(ApiError.customError(500, "Something went wrong"));
   }
 };

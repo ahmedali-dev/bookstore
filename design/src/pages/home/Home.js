@@ -3,12 +3,14 @@ import homeimg from "./home.jpg";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BookGrid from "./Bookgrid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useGetCategorys from "../../hooks/useGetCategorys";
 import { setError } from "../../Error/ErrorSlice";
 import { useDispatch } from "react-redux";
 const Home = () => {
   const getCategorys = useGetCategorys();
+  const [search, setSearch] = React.useState("");
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   if (getCategorys.isError) {
@@ -29,8 +31,20 @@ const Home = () => {
         <div className="library-home__image-container">
           <div className="library-home__search-overlay">
             <div className="library-home__search">
-              <input type="text" placeholder="Search" className="library-home__search-input" />
-              <button className="library-home__search-button">
+              <input
+                onInput={(e) => setSearch(e.target.value)}
+                type="text"
+                placeholder="Search"
+                className="library-home__search-input"
+              />
+              <button
+                onClick={() => {
+                  if (search.length > 0) {
+                    navigate(`/search/${search}`);
+                  }
+                }}
+                className="library-home__search-button"
+              >
                 <FontAwesomeIcon icon={faSearch} />
               </button>
             </div>

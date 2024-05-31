@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useMutation, useQuery } from "react-query";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Input from "../../components/Inputs/Input";
 import Button from "../../components/Buttons/Button";
+import Selects from "../../components/select/Select";
+import { setError } from "../../Error/ErrorSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 const BookItem = ({ books }) => {
   return (
     <>
@@ -62,38 +66,69 @@ const initialValues = {
 const validationSchema = Yup.object({
   status: Yup.string()
     .required("Status is required")
-    .test("status", "Invalid status", (value) => {
-      if (value) {
-        const status = ["pending", "processing", "delivered", "cancelled"];
-        if (status.includes(value)) {
-          return true;
+    .test({
+      name: "status",
+      message: "Invalid status",
+      test: (value) => {
+        if (value) {
+          const status = ["Pending", "Processing", "Delivered", "Cancelled"];
+          if (status.includes(value)) {
+            return true;
+          } else {
+            return false;
+          }
         } else {
           return false;
         }
-      } else {
-        return false;
-      }
+      },
     }),
+  shipping: Yup.number().required("Shipping is required"),
 });
 const EditOrder = () => {
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
   const { id } = useParams();
   const axios = useAxiosPrivate();
   const getSellerOrderInfo = useQuery("getSellerOrderInfo", async () => {
     return await axios.get("/checkout/seller/" + id);
   });
 
+  const updateOrderMutation = useMutation("updateOrder", async (values) => {
+    return await axios.patch("/checkout/seller/" + id, values);
+  });
+
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      updateOrderMutation.mutate(values);
     },
   });
+
+  useEffect(() => {
+    if (getSellerOrderInfo.data) {
+      console.log(getSellerOrderInfo.data.data[0]);
+    }
+  }, [getSellerOrderInfo]);
+
   React.useCallback(() => {
     if (id) {
       getSellerOrderInfo.refetch();
     }
   }, [id]);
+
+  useEffect(() => {
+    if (updateOrderMutation.isSuccess) {
+      formik.resetForm();
+      toast.success("Order updated successfully");
+      getSellerOrderInfo.refetch();
+      Navigate("/orders");
+    }
+
+    if (updateOrderMutation.isError) {
+      dispatch(setError(updateOrderMutation?.error?.response));
+    }
+  }, [updateOrderMutation, formik, Navigate, dispatch]);
 
   if (getSellerOrderInfo.isError) {
     return <div>Error</div>;
@@ -109,7 +144,7 @@ const EditOrder = () => {
   console.log(OrdersInfo);
   return (
     <div className="edit-order">
-      <div className="close">
+      <div className="close" onClick={() => Navigate("/orders")}>
         <FontAwesomeIcon icon={faClose} />
       </div>
       <div className="books">
@@ -121,21 +156,21 @@ const EditOrder = () => {
         <h1>Update Order</h1>
 
         <form onSubmit={formik.handleSubmit}>
-          <div className="form-grop">
-            <label htmlFor="status">Status</label>
-            <select name="status" {...formik.getFieldProps("status")} id="">
-              <option value="pending">Pending</option>
-              <option value="processing">Processing</option>
-              <option value="delivered">Delivered</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
-            {formik.touched.status && formik.errors.status ? (
-              <div className="error">{formik.errors.status}</div>
-            ) : null}
-          </div>
+          <Selects.Select name="status" formik={formik} label={"Status"}>
+            <Selects.Option value="Pending">Pending</Selects.Option>
+            <Selects.Option value="Processing">Processing</Selects.Option>
+            <Selects.Option value="Delivered">Delivered</Selects.Option>
+            <Selects.Option value="Cancelled">Cancelled</Selects.Option>
+          </Selects.Select>
 
           <Input formik={formik} placeholder="Shipping" type="decimal" name="shipping" />
-          <Button type="submit">Update</Button>
+          <Button
+            loading={updateOrderMutation.isLoading}
+            disabled={updateOrderMutation.isLoading}
+            type="submit"
+          >
+            Update
+          </Button>
         </form>
       </div>
     </div>

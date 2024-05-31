@@ -16,11 +16,18 @@ const validation = [
 const signinUser = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const [result] = await getUserByEmail(email, "username,email, password,id,avatar");
+  const [result] = await getUserByEmail(
+    email,
+    "username,email, password,id,avatar,admin,suspended"
+  );
   console.log(result);
 
   if (!result) {
     return next(apperr.userNotFound());
+  }
+
+  if (result.suspended) {
+    return next(apperr.userSuspended());
   }
 
   try {
@@ -30,23 +37,24 @@ const signinUser = async (req, res, next) => {
       return next(apperr.userNotFound());
     }
     console.log("avatar", result);
-    const accessToken = generateAccessToken(
-      {
+    let payload = {
+      username: result.username,
+      email: result.email,
+      id: result.id,
+      avatar: result.avatar,
+    };
+
+    if (result.admin) {
+      payload = {
+        id: result.id,
+        admin: result.admin,
         username: result.username,
         email: result.email,
-        id: result.id,
         avatar: result.avatar,
-      },
-      "15d"
-    );
-    const refreshToken = generateRefreshToken(
-      {
-        username: result.username,
-        email: result.email,
-        id: result.id,
-      },
-      "100d"
-    );
+      };
+    }
+    const accessToken = generateAccessToken(payload, "15d");
+    const refreshToken = generateRefreshToken(payload, "100d");
 
     // save refresh token in cookie
     res.cookie("rt", refreshToken, {

@@ -27,6 +27,8 @@ router.post(
   bookController.updateBook
 );
 
+router.get("/search/:search", bookController.searchValidation, validation, bookController.search);
+
 router.delete("/:id", bookController.deleteBookValidation, validation, bookController.deleteBook);
 
 // router.post('')

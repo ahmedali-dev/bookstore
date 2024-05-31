@@ -33,6 +33,9 @@ const useApiErrorHandler = ({ err = null, formik = null }) => {
           // User already exists
           toast.error(msg); // Log the error message
           break;
+        case status === 403 && ErrCode === "1278c92":
+          toast.error(msg); // Log the error message
+          break;
         case status === 400 && ErrCode === "1278cb":
           console.log(msg);
           // Validation error

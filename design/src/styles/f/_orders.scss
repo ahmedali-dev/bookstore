@@ -55,7 +55,12 @@
           color: #fff;
         }
 
-        &.completed {
+        &.processing {
+          background-color: #2196f3;
+          color: #fff;
+        }
+
+        &.delivered {
           background-color: #4caf50;
           color: #fff;
         }
@@ -114,8 +119,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  width: 50%;
-  height: 70vh;
+  width: 35rem;
+  max-height: 70vh;
   overflow: hidden;
   overflow-y: auto;
 
@@ -164,6 +169,7 @@
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: var(--shadow);
+    margin-bottom: 3rem;
 
     &-item {
       margin-top: 0.5rem;
