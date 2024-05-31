@@ -1,0 +1,34 @@
+.form-group {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  select {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    option {
+      color: #fff;
+      font-size: 1.3rem;
+      background-color: var(--primarycolor);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #4caf50;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+  }
+
+  //   textarea {
+  //     resize: vertical;
+  //     min-height: 11vh;
+  //   }
+}

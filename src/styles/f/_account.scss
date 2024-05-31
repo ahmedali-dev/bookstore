@@ -1,0 +1,44 @@
+.account {
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 4rem;
+  width: 100%;
+  padding: 1rem;
+  .navigation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    width: 100%;
+    overflow-x: auto;
+
+    a {
+      display: flex;
+      font-size: 1.4rem;
+      background: #fff;
+      color: #666;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 2rem;
+      width: max-content;
+      border-radius: 0.25rem;
+
+      &.active {
+        background-color: var(--primarycolor);
+        color: #333;
+      }
+
+      &:hover {
+        background-color: #eee;
+      }
+
+      &.active {
+        background-color: #4caf50;
+        color: #fff;
+      }
+    }
+  }
+}

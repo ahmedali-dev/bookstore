@@ -1,0 +1,93 @@
+$width: 94.8rem;
+$height: 66.5rem;
+
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.2rem solid var(--primarycolor);
+    box-shadow: var(--shadow);
+    border-radius: 0.5rem;
+    width: $width;
+    min-height: $height;
+    border-radius: 0.5rem;
+
+    .form-group {
+      width: 40%;
+      padding: 2rem;
+
+      input {
+        height: 4.5rem;
+      }
+
+      header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .switch {
+        a {
+          display: block;
+          font-size: 1.5rem;
+          margin-top: 2rem;
+
+          span {
+            color: var(--seconderycolor);
+          }
+        }
+      }
+    }
+
+    .image-side {
+      flex-basis: 60%;
+      height: 66.5rem;
+      img {
+        // width: 100%;
+        height: 66.5rem;
+        object-fit: cover;
+        // border-radius: 1rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $width) {
+  $width: 32rem;
+  .register {
+    .container {
+      width: $width;
+      height: auto;
+
+      .form-group {
+        width: 100%;
+      }
+
+      .image-side {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  $width: 100%;
+  .register {
+    height: auto;
+    .container {
+      width: $width;
+      min-height: 100vh;
+      .form-group {
+        padding: 0.3rem;
+      }
+    }
+  }
+}

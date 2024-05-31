@@ -1,0 +1,258 @@
+.tools {
+  display: flex;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .newbook {
+    a {
+      display: block;
+      padding: 1.3rem;
+      border-radius: 0.5rem;
+      background: #bb86fc;
+      color: white;
+      box-shadow: var(--shadow);
+      width: 100%;
+    }
+  }
+}
+
+.addnewbook {
+  select {
+    /* Reset */
+    appearance: none;
+    border: 0;
+    outline: 0;
+    font: inherit;
+    /* Personalize */
+    width: 20rem;
+    padding: 1rem 4rem 1rem 1rem;
+    background: var(--primarycolor);
+    color: white;
+    border-radius: 0.25em;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    width: 100%;
+    margin-top: 2rem;
+    font-size: 1.3rem;
+    /* Remove IE arrow */
+    &::-ms-expand {
+      display: none;
+    }
+    /* Remove focus outline */
+    &:focus {
+      outline: none;
+    }
+    /* <option> colors */
+    option {
+      color: inherit;
+      background-color: var(--primarycolor);
+    }
+  }
+
+  .description {
+    width: 100%;
+    height: 22rem;
+    margin-top: 1rem;
+    // padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+
+    textarea {
+      padding: 1rem;
+      height: 22rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: border-color 0.2s ease-in-out;
+      box-shadow: var(--shadow);
+      &:focus {
+        outline: none;
+        border-color: #4a90e2;
+      }
+
+      &.error {
+        border-color: var(--errorcolor);
+        color: var(--errorcolor);
+      }
+    }
+    .error {
+      color: var(--errorcolor);
+    }
+  }
+}
+
+.view-book {
+  grid-column: 1 / -1;
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem;
+    gap: 2rem;
+
+    @media screen and (max-width: 768px) {
+      flex-flow: column;
+      justify-content: center;
+      // text-align: center;
+    }
+
+    .cover {
+      width: 40rem;
+      @media screen and (max-width: 400px) {
+        width: 100%;
+      }
+      // height: 40rem;
+      img {
+        width: 100%;
+      }
+    }
+
+    .info {
+      width: 100%;
+      h1 {
+        font-size: 3.7rem;
+        margin-bottom: 1.6rem;
+      }
+
+      p {
+        width: 60%;
+        line-height: 1.5;
+        color: #201f1f;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        word-wrap: break-word;
+
+        & > svg {
+          color: #ffa41c;
+        }
+      }
+
+      h2 {
+        color: var(--primarycolor);
+        margin-bottom: 1.6rem;
+      }
+
+      button {
+        width: max-content;
+      }
+    }
+  }
+
+  h1.tt {
+    font-size: 2.5rem;
+    color: var(--lastcolor);
+    background-color: var(--primarycolor);
+    width: max-content;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+  }
+
+  .description {
+    margin-top: 3rem;
+    padding: 2rem;
+  }
+
+  .reviews {
+    padding: 2rem;
+    width: 100%;
+    .addReview {
+      width: 100%;
+      margin: 2rem 0;
+      display: flex;
+      flex-flow: column;
+      gap: 1rem;
+
+      .star {
+        display: flex;
+        align-items: center;
+        p {
+          display: block;
+          margin-left: 1rem;
+          font-size: 1.4rem;
+          svg {
+            color: #ffa41c;
+          }
+        }
+        // justify-content: center;
+      }
+
+      button {
+        width: max-content;
+      }
+      textarea {
+        padding: 1rem;
+        height: 22rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: border-color 0.2s ease-in-out;
+        box-shadow: var(--shadow);
+        width: 100%;
+
+        &:focus {
+          outline: none;
+          border-color: #4a90e2;
+        }
+      }
+    }
+
+    .reviewsList {
+      width: 100%;
+      // padding: 1rem;
+      margin-bottom: 1rem;
+      .review {
+        width: 100%;
+        display: flex;
+        flex-flow: column;
+        margin-bottom: 2rem;
+        // gap: 1rem;
+
+        .reviewHeader {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          img {
+            width: 5rem;
+            height: 5rem;
+            object-fit: cover;
+            border-radius: 50%;
+          }
+          .reviewInfo {
+            svg {
+              color: #ffa41c;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.edit-book-container {
+  &__edit-book {
+    padding: 2rem;
+
+    img {
+      width: 100%;
+      height: 40rem;
+      margin-bottom: 2rem;
+    }
+
+    h1,
+    h2,
+    h4,
+    p {
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: var(--primarycolor);
+    }
+  }
+}
