@@ -55,17 +55,15 @@ const EditBook = () => {
     }),
     onSubmit: (values) => {
       dispatch(updateBook({ fetch: axios, id, book: values })).finally(() => {
-        dispatch(updateSuccess());
+        if (!isError) {
+          navigate("/books");
+          toast.success("Book created successfully");
+        }
       });
     },
   });
 
-  useEffect(() => {
-    if (isSuccess) {
-      navigate("/books");
-      toast.success("Book created successfully");
-    }
-  }, [error, isSuccess, isError]);
+  useEffect(() => {}, [error, isSuccess, isError]);
   useEffect(() => {
     let queryData = [];
     if (query?.data) {

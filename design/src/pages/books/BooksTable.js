@@ -60,7 +60,7 @@ const Table = ({ data, ...props }) => {
               <Tables.TableCell>{book.price}</Tables.TableCell>
               <Tables.TableCell>{book.count}</Tables.TableCell>
               <Tables.TableCell>
-                <Link to={`/books/${book.id}`} className="view">
+                <Link to={`/books/v/${book.id}`} className="view">
                   <FontAwesomeIcon icon={faEye} />
                 </Link>
               </Tables.TableCell>

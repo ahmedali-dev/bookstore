@@ -20,11 +20,11 @@
 
   .table {
     // width: 100%;
-    width: max-content;
+    width: 100rem;
     // display: block;
 
     @media screen and (min-width: 1000px) {
-      width: 100%;
+      width: 150rem;
     }
     border-collapse: collapse;
     padding: 1rem;
