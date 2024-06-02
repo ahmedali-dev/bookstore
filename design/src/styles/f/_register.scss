@@ -65,10 +65,10 @@ $height: 66.5rem;
 @media screen and (max-width: $width) {
   $width: 32rem;
   .register {
-    min-height: 40vh;
+    
     .container {
       width: $width;
-      height: auto;
+      min-height: 50.5rem;
 
       .form-group {
         width: 100%;
@@ -87,7 +87,7 @@ $height: 66.5rem;
     height: auto;
     .container {
       width: $width;
-      min-height: 100vh;
+      min-height: 50.5rem;
       .form-group {
         padding: 0.3rem;
       }
