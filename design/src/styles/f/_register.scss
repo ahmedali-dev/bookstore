@@ -8,6 +8,8 @@ $height: 66.5rem;
   width: 100%;
   min-height: 100vh;
 
+ 
+
   .container {
     display: flex;
     justify-content: center;
@@ -63,6 +65,7 @@ $height: 66.5rem;
 @media screen and (max-width: $width) {
   $width: 32rem;
   .register {
+    min-height: 40vh;
     .container {
       width: $width;
       height: auto;
