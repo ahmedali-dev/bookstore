@@ -10,6 +10,7 @@ const Register = lazy(() => import("./pages/register/Register"));
 const SignIn = lazy(() => import("./pages/signin/Signin"));
 const Home = lazy(() => import("./pages/home/Home"));
 const Books = lazy(() => import("./pages/books/Books"));
+const Categorys = lazy(() => import("./pages/books/Categorys"));
 const NewBook = lazy(() => import("./pages/books/NewBook"));
 const EditBook = lazy(() => import("./pages/books/EditBook"));
 const ViewBook = lazy(() => import("./pages/books/ViewBook"));
@@ -60,6 +61,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/search" element={<div>search</div>} />
                 <Route path="/books/v/:id" element={<ViewBook />} />
+                <Route path="/books/category/:id" element={<Categorys />} />
                 <Route path="/search/:search" element={<Search />} />
                 <Route path="/cart/*" element={<Cart />} />
                 {/* <Route path="/cart/checkout" element={<Checkout />} /> */}
