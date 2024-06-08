@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate, useParams,Link } from "react-router-dom";
 import React, { useEffect } from 'react';
 import booki from "./book.jpg"
@@ -17,6 +16,10 @@ const Categorys = ({ ...props }) => {
     const { id } = useParams();
     const getBook = useGetBookByCategory(id);
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        getBook.mutate()
+    }, [id])
 
     if (query?.isError) {
         dispatch(setError(query?.error?.response));
