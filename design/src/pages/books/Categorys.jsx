@@ -1,6 +1,5 @@
 import { useNavigate, useParams,Link } from "react-router-dom";
 import React, { useEffect } from 'react';
-import { setError } from '../../Error/ErrorSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import useGetBookByCategory from '../../hooks/useGetBooksByCategory';
