@@ -1,6 +1,14 @@
 import React from 'react';
-import { useNavigate, useParam,Link } from "react-router-dom";
-
+import { useNavigate, useParams,Link } from "react-router-dom";
+import React, { useEffect } from 'react';
+import booki from "./book.jpg"
+import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { useDispatch } from 'react-redux';
+import { setError } from '../../Error/ErrorSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import useGetBookByCategory from '../../hooks/useGetBooksByCategory';
 import { useDispatch } from 'react-redux';
 import { setError } from '../../Error/ErrorSlice';
