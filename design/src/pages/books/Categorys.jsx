@@ -1,7 +1,5 @@
 import { useNavigate, useParams,Link } from "react-router-dom";
 import React, { useEffect } from 'react';
-import booki from "./book.jpg"
-import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useDispatch } from 'react-redux';
