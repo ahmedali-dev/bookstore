@@ -55,7 +55,7 @@ const Home = () => {
         <h2 className="category-buttons__title">Categories</h2>
         <div className="category-buttons__grid">
           {categories?.map((category, index) => (
-            <Link key={index.id} className="category-buttons__button">
+            <Link to={`/books/category/${category.id}`} key={index.id} className="category-buttons__button">
               {category.name}
             </Link>
           ))}

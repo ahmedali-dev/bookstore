@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParam,Link } from "react-router-dom";
 
 import useGetBookByCategory from '../../hooks/useGetBooksByCategory';
 import { useDispatch } from 'react-redux';
