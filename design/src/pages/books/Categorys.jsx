@@ -1,8 +1,5 @@
 import { useNavigate, useParams,Link } from "react-router-dom";
 import React, { useEffect } from 'react';
-import { useQuery } from 'react-query';
-import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import { useDispatch } from 'react-redux';
 import { setError } from '../../Error/ErrorSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
