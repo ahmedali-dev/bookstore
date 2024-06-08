@@ -25,6 +25,7 @@ const Categorys = ({ ...props }) => {
 
     let books = [];
     if (getBook?.data) {
+        console.log(getBook?.data)
         books = getBook?.data?.data[0];
     }
 
@@ -33,9 +34,9 @@ const Categorys = ({ ...props }) => {
     return <>
     <div className="home">
      <div className="book-grid">
-      <h2 className="book-grid__title">Top Books</h2>
+      <h2 className="book-grid__title">Books</h2>
       <div className="book-grid__container">
-        {books?.map((book, index) => (
+        {books && books?.map((book, index) => (
           <Link to={`/books/v/${book.id}`} className="book-grid__item" key={index}>
             <div key={book?.id} >
             <img src={`${process.env.REACT_APP_API_URL}images/${book?.cover}`} alt="Book Cover" className="book-grid__image" />
