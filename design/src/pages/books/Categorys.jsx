@@ -15,23 +15,24 @@ const Categorys = ({ ...props }) => {
         getBook.mutate()
     }, [id])
 
-    if (query?.isError) {
-        dispatch(setError(query?.error?.response));
+    if (getBook?.isError) {
+        dispatch(setError(getBook?.error?.response));
     }
 
-    if (query?.isLoading) {
+    if (getBook?.isLoading) {
         return <div><Loading width={'4rem'} height={'4rem'} /></div>;
     }
 
     let books = [];
-    if (query?.data) {
-        books = query?.data?.data[0];
+    if (getBook?.data) {
+        books = getBook?.data?.data[0];
     }
 
     
 
     return <>
-    <div className="book-grid">
+    <div className="home">
+     <div className="book-grid">
       <h2 className="book-grid__title">Top Books</h2>
       <div className="book-grid__container">
         {books?.map((book, index) => (
@@ -48,6 +49,7 @@ const Categorys = ({ ...props }) => {
           </Link>
         ))}
       </div>
+    </div>
     </div>
     </>
 }
