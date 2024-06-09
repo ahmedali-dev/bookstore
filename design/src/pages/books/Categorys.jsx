@@ -34,7 +34,7 @@ const Categorys = ({ ...props }) => {
     return <>
     <div className="home">
      <div className="book-grid">
-      <h2 className="book-grid__title">Category Name: {book[0]?.cateName}</h2>
+      <h2 className="book-grid__title">Category Name: {books[0]?.cateName}</h2>
       <div className="book-grid__container">
         {books && books?.map((book, index) => (
           <Link to={`/books/v/${book.id}`} className="book-grid__item" key={index}>
